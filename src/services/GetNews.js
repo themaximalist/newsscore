@@ -2,10 +2,9 @@ const log = require("debug")("newsscore:news");
 
 const axios = require("axios");
 const { DateTime } = require("luxon");
-
 const { querystring } = require("../utils");
 
-module.exports = async function* getNews(options = null) {
+module.exports = async function* GetNews(options = null) {
     log(`fetching news for ${JSON.stringify(options)}`)
     if (!options) options = {};
 

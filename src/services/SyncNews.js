@@ -1,5 +1,5 @@
 const log = require("debug")("newsscore:index");
-const getNews = require("./news");
+const GetNews = require("./GetNews");
 const CreateStory = require("./CreateStory")
 
 module.exports = async function SyncNews(date = null) {
@@ -7,7 +7,7 @@ module.exports = async function SyncNews(date = null) {
     for (const category of categories) {
         const options = { category };
         if (date) options.date = date;
-        const news = await getNews(options);
+        const news = await GetNews(options);
         for await (const story of news) {
             await CreateStory(story);
         }

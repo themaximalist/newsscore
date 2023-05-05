@@ -1,9 +1,9 @@
 const log = require("debug")("newsscore:SyncScores");
-const Stories = require('../models/story');
+const Story = require('../models/story');
 const ScoreAgent = require('../agents/ScoreAgent');
 
 module.exports = async function SyncScores() {
-    const stories = await Stories.findAll({
+    const stories = await Story.findAll({
         where: {
             score: null
         }
