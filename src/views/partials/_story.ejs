@@ -1,4 +1,9 @@
-<div>
-    <%- story.score %>
-    <%- story.title %>
+<div class="flex items-center gap-4">
+    <div>
+        <%- story.score %>
+    </div>
+    <% if (story.image_url) { %>
+    <img src="<%- story.image_url %>" class="w-8 h-8" />
+    <% } %>
+    <a href="<%- story.url %>" target="_blank"><%- story.title %></a>
 </div>
