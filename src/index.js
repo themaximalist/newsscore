@@ -1,14 +1,23 @@
 require("dotenv").config();
-const debug = require("debug")("app");
+const log = require("debug")("newsscore:index");
 const getNews = require("./services/news");
-const getScore = require("./services/score");
-const { appendFileSync } = require("fs");
-// const server = require("./server");
-// server.start();
+const CreateStory = require("./services/CreateStory")
+// const getScore = require("./services/score");
+// const { appendFileSync } = require("fs");
+const database = require("./database");
 
 async function main() {
-    const news = await getNews();
-    console.log(`found ${news.length} news stories`);
+    await database.initialize();
+
+    const categories = ["business", "technology", "top", "politics", "world"];
+    for (const category of categories) {
+        log(`fetching news for ${category}`)
+        const news = await getNews({ category });
+        for await (const story of news) {
+            await CreateStory(story);
+        }
+    }
+    /*
     for (const story of news) {
         try {
             console.log(JSON.stringify(story, null, 4));
@@ -21,6 +30,7 @@ async function main() {
     }
 
     console.log(news.length);
+    */
 }
 
 main();

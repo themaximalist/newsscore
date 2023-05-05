@@ -15,6 +15,7 @@ GUIDELINES
 - Award a score above 7 only if the article remains consequential after one year.
 - Less than 5% of articles should obtain a score higher than 7.
 - Assess credibility using the author, publication, and URL.
+- Articles without sufficient content should be rated lower.
 - Articles should be judged with a US big-brain tech bro hacker news perspective.
 
 EXAMPLES
