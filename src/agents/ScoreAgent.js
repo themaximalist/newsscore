@@ -1,6 +1,7 @@
+const log = require("debug")("newsscore:ScoreAgent");
 const AI = require("@themaximalist/ai.js");
 
-module.exports = async function getScore(story) {
+module.exports = async function ScoreAgent(story) {
     if (!story) throw new Error(`No story provided!`);
 
     const prompt = `
@@ -28,7 +29,17 @@ Provide the article details as follows: ${JSON.stringify(story)}
 The calculated score for the article is:
 `.trim();
 
-    const score = await AI(prompt, { model: "gpt-4" });
-    console.log("SCORE", score);
-    return Number(score);
+    async function fetch() {
+        const response = await AI(prompt, { model: "gpt-4" });
+        const score = parseInt(parseFloat(response) * 100);
+        if (isNaN(score)) throw new Error("Score is not a number");
+        return score;
+    }
+
+    try {
+        return await fetch();
+    } catch (e) {
+        log(`error during ScoreAgent ${story.fingerprint} ...retrying`)
+        return await fetch();
+    }
 }

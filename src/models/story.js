@@ -59,6 +59,28 @@ Story.init({
         type: DataTypes.INTEGER,
         allowNull: true,
     },
+    llm_fields: {
+        type: DataTypes.VIRTUAL,
+        get() {
+            const fields = {
+                title: this.getDataValue("title"),
+                category: this.getDataValue("category"),
+                source: this.getDataValue("source"),
+                url: this.getDataValue("url"),
+            };
+
+            const content = this.getDataValue("content");
+            if (content) fields.content = content;
+
+            const description = this.getDataValue("description");
+            if (description) fields.description = description;
+
+            return fields;
+        },
+        set() {
+            throw new Error('Do not try to set the `llm_fields` value!');
+        }
+    }
 }, {
     sequelize,
 });

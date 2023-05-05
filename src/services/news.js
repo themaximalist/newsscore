@@ -6,6 +6,7 @@ const { DateTime } = require("luxon");
 const { querystring } = require("../utils");
 
 module.exports = async function* getNews(options = null) {
+    log(`fetching news for ${JSON.stringify(options)}`)
     if (!options) options = {};
 
     if (!options.apikey) options.apikey = process.env.NEWSDATA_API_KEY;
@@ -21,7 +22,7 @@ module.exports = async function* getNews(options = null) {
     while (true) {
         const url = `https://newsdata.io/api/1/archive?${querystring(options)}`;
 
-        log(`Fetching news from ${url}...`);
+        log(`Hitting NewsData API endpoint ${url}...`);
 
         const response = await axios.get(url);
         if (response.status !== 200) {
