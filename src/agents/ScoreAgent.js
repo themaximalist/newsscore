@@ -18,21 +18,37 @@ GUIDELINES
 - Assess credibility using the author, publication, and URL.
 - Articles without sufficient content should be rated lower.
 - Articles should be judged with a US big-brain tech bro hacker news perspective.
+- Only return a score from 0.0 - 10.0, do not return a JSON object or any other text.
 
 EXAMPLES
 "I was shot nine times in the Christchurch massacre – now I’m reclaiming the gunman’s journey" -> 3.5
 "The best Wi-Fi routers in 2022" -> 0.1
 "OpenAI announces ChatGPT successor GPT-4" -> 9.9
 
-Provide the article details as follows: ${JSON.stringify(story)}
+ARTICLE DETAILS
+${JSON.stringify(story)}
 
-The calculated score for the article is:
+The calculated score for the article above is:
 `.trim();
 
     async function fetch() {
         const response = await AI(prompt, { model: "gpt-4" });
-        const score = parseInt(parseFloat(response) * 100);
-        if (isNaN(score)) throw new Error("Score is not a number");
+        let score = parseInt(parseFloat(response) * 100);
+        if (isNaN(score)) {
+            console.log("RESPONSE", response);
+            log(`score isNan attempting JSON.parse`);
+            try {
+                const data = JSON.parse(response);
+                if (!data.score) throw new Error("Score is not a number");
+                score = parseInt(parseFloat(data.score) * 100);
+                if (isNaN(score)) {
+                    throw new Error("Score is not a number");
+                }
+                return score;
+            } catch (e) {
+                throw e;
+            }
+        }
         return score;
     }
 

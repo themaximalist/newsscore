@@ -8,6 +8,7 @@ app.use(express.static("public"));
 app.locals = {
   NODE_ENV: process.env.NODE_ENV,
 };
+app.set("view engine", "ejs");
 app.set("views", "src/views");
 
 app.start = async function () {
@@ -16,5 +17,7 @@ app.start = async function () {
   log("Server listening on port " + port);
 };
 
+
+require("./controllers")(app);
+
 module.exports = app;
-const controllers = require("./controllers");

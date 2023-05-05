@@ -9,6 +9,8 @@ module.exports = async function SyncScores() {
         }
     });
 
+    log(`found ${stories.length} stories without scores`);
+
     for (const story of stories) {
         const score = await ScoreAgent(story.llm_fields);
         log(`updating score for ${story.title} to ${score}`);

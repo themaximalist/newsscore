@@ -1,0 +1,9 @@
+<%- include('partials/_header') %>
+
+<div class="container border-2 mx-auto">
+    <% stories.forEach(story => { %>
+    <%- include('partials/_story', { story }) %>
+    <% }) %>
+</div>
+
+<%- include('partials/_footer') %>
