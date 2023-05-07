@@ -1,25 +1,13 @@
 const log = require("debug")("newsscore:CreateStory");
 const Story = require("../models/story");
-const { sha256, newsDateToUTC } = require("../utils");
+const FingerprintLink = require("./FingerprintLink");
 
 module.exports = async function createStory(story) {
     log(`creating story ${story.title}...`);
 
-    const fingerprint = await sha256(story.link);
-    const publish_date = newsDateToUTC(story.pubDate);
-    const options = {
-        fingerprint,
-        publish_date,
-        category: story.category[0],
-        service: "newsdata",
-        source: story.source_id,
-        url: story.link,
-        title: story.title,
-        description: story.description,
-        content: story.content,
-        image_url: story.image_url,
-        data: story
-    };
+    const options = Object.assign({}, story);
+    options.fingerprint = await FingerprintLink(story.url);
+    options.data = story;
 
     try {
         const created = await Story.create(options);

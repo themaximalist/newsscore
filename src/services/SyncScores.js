@@ -12,13 +12,13 @@ module.exports = async function SyncScores() {
             content: {
                 [Op.ne]: null
             },
-            final_score: false,
+            final: false,
             score: {
                 [Op.gte]: process.env.NEWS_SCORE_CUTOFF
             }
         },
         order: [
-            ['publish_date', 'DESC']
+            ['createdAt', 'DESC']
         ]
 
     });
@@ -30,7 +30,7 @@ module.exports = async function SyncScores() {
     for (const story of stories) {
         const score = await ScoreAgent(story.llm_fields);
         log(`updating score for ${story.title} from ${story.score} -> ${score}`);
-        await story.update({ score, final_score: true });
+        await story.update({ score, final: true });
 
         if (++i % 10 == 0) {
             log(`sleeping for 15 seconds...`);

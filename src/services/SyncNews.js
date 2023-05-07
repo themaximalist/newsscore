@@ -1,4 +1,4 @@
-const log = require("debug")("newsscore:index");
+const log = require("debug")("newsscore:SyncNews");
 const GetNews = require("./GetNews");
 const CreateStory = require("./CreateStory")
 

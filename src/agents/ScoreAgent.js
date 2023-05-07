@@ -27,6 +27,7 @@ EXAMPLES:
 "Tequila is About to Become the U.S.’s Most Popular Spirit. That’s Bad for the Environment" -> 2.0
 "What is profit and loss (PnL) and how to calculate it" -> 2.0
 "OpenAI announces ChatGPT successor GPT-4" -> 9.9
+"He wrote a book on a rare subject. Then a ChatGPT replica appeared on Amazon." -> 6.3
 
 ARTICLE DETAILS:
 ${JSON.stringify(story)}

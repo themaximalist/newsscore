@@ -11,10 +11,6 @@ Story.init({
         unique: true,
         allowNull: false,
     },
-    publish_date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    },
     category: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -39,11 +35,11 @@ Story.init({
         type: DataTypes.TEXT,
         allowNull: true,
     },
-    content: {
+    author: {
         type: DataTypes.TEXT,
         allowNull: true,
     },
-    image_url: {
+    content: {
         type: DataTypes.TEXT,
         allowNull: true,
     },
@@ -59,7 +55,7 @@ Story.init({
         type: DataTypes.INTEGER,
         allowNull: true,
     },
-    final_score: {
+    final: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false,

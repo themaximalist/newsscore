@@ -7,7 +7,7 @@ module.exports = async function SyncHeadlines() {
     log(`sync headlines`);
     const stories = await Story.findAll({
         where: {
-            final_score: true,
+            final: true,
             score: {
                 [Op.gte]: process.env.NEWS_SCORE_CUTOFF
             },

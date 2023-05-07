@@ -6,10 +6,11 @@ const AI = require("@themaximalist/ai.js");
 async function filter() {
     const stories = await Story.findAll({
         where: {
-            score: null
+            score: null,
+            final: false
         },
         order: [
-            ['publish_date', 'DESC']
+            ['createdAt', 'DESC']
         ],
         limit: 50,
     });
@@ -22,7 +23,6 @@ async function filter() {
     });
 
     const scores = await HighpassFilterAgent(articles);
-    console.log(scores);
     for (const story of stories) {
         const score = scores[story.id];
         if (!score || !parseInt(score)) {

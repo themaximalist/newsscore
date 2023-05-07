@@ -35,7 +35,7 @@ module.exports = async function SyncContent() {
             }
         },
         order: [
-            ['publish_date', 'DESC']
+            ['createdAt', 'DESC']
         ]
     });
 

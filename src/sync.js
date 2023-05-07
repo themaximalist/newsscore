@@ -1,9 +1,8 @@
 require("dotenv").config();
 const log = require("debug")("newsscore:sync");
 
-const SyncNews = require("./services/SyncNews");
 const SyncScores = require("./services/SyncScores");
-const SyncContent = require("./services/SyncContent");
+const SyncSources = require("./services/SyncSources");
 const SyncHeadlines = require("./services/SyncHeadlines");
 const database = require("./database");
 const HighpassFilter = require("./services/HighpassFilter");
@@ -15,10 +14,9 @@ async function sync() {
 
     log(`running sync`);
     await database.initialize();
-    // await SyncNews(date); // TODO: cache sync date...only sync once per 2 hours
-    // await HighpassFilter();
-    // await SyncContent();
-    // await SyncScores();
+    await SyncSources(); // TODO: put on cache
+    await HighpassFilter();
+    await SyncScores();
     await SyncHeadlines();
 }
 
