@@ -59,6 +59,11 @@ Story.init({
         type: DataTypes.INTEGER,
         allowNull: true,
     },
+    final_score: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+    },
     llm_fields: {
         type: DataTypes.VIRTUAL,
         get() {
@@ -70,7 +75,7 @@ Story.init({
             };
 
             const content = this.getDataValue("content");
-            if (content) fields.content = content;
+            if (content) fields.content = content.slice(0, 4000);
 
             const description = this.getDataValue("description");
             if (description) fields.description = description;

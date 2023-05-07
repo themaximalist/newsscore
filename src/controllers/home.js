@@ -4,13 +4,14 @@ const { DateTime } = require("luxon");
 
 module.exports = async function (req, res) {
 
-    let date = DateTime.utc();
+    let score = req.query.score || process.env.NEWS_SCORE_CUTOFF;
+    let date = DateTime.local();
     if (req.query.date) {
         try {
             date = DateTime.fromISO(req.query.date);
         } catch (e) {
             log(`invalid date ${req.query.date}`);
-            date = DateTime.utc();
+            date = DateTime.local();
         }
     }
 
@@ -19,10 +20,14 @@ module.exports = async function (req, res) {
 
     const stories = await Story.findAll({
         where: {
-            score: { [Op.gt]: 600 },
+            score: { [Op.gt]: score },
             publish_date: { [Op.between]: [start, end] }
         },
         order: [["score", "DESC"]],
     });
-    res.render("home", { stories });
+
+    res.render("home", {
+        stories,
+        date: date.toISODate(),
+    });
 };

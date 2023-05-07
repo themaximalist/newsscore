@@ -19,6 +19,7 @@
     "author": "The Maximalist",
     "license": "MIT",
     "dependencies": {
+        "@themaximalist/scrap.js": "git+ssh://git@github-themaximalist:themaximal1st/scrape.js.git",
         "@aws-crypto/sha256-js": "^4.0.0",
         "@themaximalist/ai.js": "^0.1.2",
         "axios": "^1.4.0",
@@ -28,6 +29,7 @@
         "express": "^4.18.2",
         "luxon": "^3.3.0",
         "pg": "^8.10.0",
+        "request": "^2.88.2",
         "sequelize": "^6.31.1"
     },
     "devDependencies": {

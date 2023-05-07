@@ -1,9 +1,17 @@
-<div class="flex items-center gap-4">
-    <div>
-        <%- story.score %>
-    </div>
-    <% if (story.image_url) { %>
-    <img src="<%- story.image_url %>" class="w-8 h-8" />
-    <% } %>
-    <a href="<%- story.url %>" target="_blank"><%- story.title %></a>
-</div>
+<% let textSize = "text-lg" %>
+<% if (story.score >= 900) { %>
+<% textSize = 'text-4xl'; %>
+<% } else if (story.score >= 800) { %>
+<% textSize = 'text-3xl'; %>
+<% } else if (story.score >= 700) { %>
+<% textSize = 'text-2xl'; %>
+<% } else if (story.score >= 600) { %>
+<% textSize = 'text-xl'; %>
+<% } %>
+<a class="<%- textSize %> relative" href="<%- story.url %>" target="_blank">
+    <span class="inline-block text-white w-[40px] absolute top-2 rounded-lg text-lg bg-amber-500 text-center"><%- (story.score / 100).toFixed(1) %></span>
+    <span class="inline-block ml-14">
+        <%- story.headline || story.title %>
+        <span class="inline-block ml-1 text-base italic text-gray-400"><%- story.category %></span>
+    </span>
+</a>

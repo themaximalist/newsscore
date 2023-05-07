@@ -7,6 +7,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.locals = {
   NODE_ENV: process.env.NODE_ENV,
+  DateTime: require("luxon").DateTime,
 };
 app.set("view engine", "ejs");
 app.set("views", "src/views");
