@@ -1,13 +1,30 @@
 <%- include('partials/_header') %>
 <% const dt = DateTime.fromISO(date) %>
+<% const today = DateTime.local() %>
+<% const isToday = dt.toISODate() == today.toISODate() %>
 
 <div class="bg-gradient-to-br from-amber-50/30 to-amber-100/30 min-h-screen p-4 flex flex-col gap-2 justify-start">
     <div class="w-full justify-between flex text-amber-500 text-sm">
-        <a href="/?date=<%- dt.minus({days: 1}).toFormat("yyyy-MM-dd") %>">Yesterday</a>
+        <a href="/?date=<%- dt.minus({days: 1}).toFormat("yyyy-MM-dd") %>">
+            <% if (isToday) { %>
+            Yesterday
+            <% } else { %>
+            <%- dt.minus({days: 1}).toFormat("yyyy-MM-dd") %>
+            <% } %>
+        </a>
         <a href="/?date=<%- dt.toFormat("yyyy-MM-dd") %>">
             <%- dt.toLocaleString(DateTime.DATE_HUGE) %>
+            <% if (isToday) { %>
+            (Today)
+            <% } %>
         </a>
-        <a href="/?date=<%- dt.plus({days: 1}).toFormat("yyyy-MM-dd") %>">Tomorrow</a>
+        <a href="/?date=<%- dt.plus({days: 1}).toFormat("yyyy-MM-dd") %>">
+            <% if (isToday) { %>
+            Tomorrow
+            <% } else { %>
+            <%- dt.plus({days: 1}).toFormat("yyyy-MM-dd") %>
+            <% } %>
+        </a>
     </div>
     <div class="w-full text-center text-base text-amber-600">
     </div>

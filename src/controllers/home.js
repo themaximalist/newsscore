@@ -21,6 +21,8 @@ module.exports = async function (req, res) {
     const stories = await Story.findAll({
         where: {
             score: { [Op.gt]: score },
+            final_score: true,
+            headline: { [Op.ne]: null },
             publish_date: { [Op.between]: [start, end] }
         },
         order: [["score", "DESC"]],

@@ -11,14 +11,14 @@ const HighpassFilter = require("./services/HighpassFilter");
 const { DateTime } = require("luxon");
 
 async function sync() {
-    // let date = DateTime.local().minus({ days: 1 }).toISODate();
+    let date = DateTime.local().minus({ days: 1 }).toISODate();
 
     log(`running sync`);
     await database.initialize();
-    await SyncNews();
-    await HighpassFilter();
-    await SyncContent();
-    await SyncScores();
+    // await SyncNews(date); // TODO: cache sync date...only sync once per 2 hours
+    // await HighpassFilter();
+    // await SyncContent();
+    // await SyncScores();
     await SyncHeadlines();
 }
 
