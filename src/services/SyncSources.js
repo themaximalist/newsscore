@@ -5,11 +5,27 @@ const FingerprintLink = require("./FingerprintLink");
 const { Scrape } = require("@themaximalist/scrape.js");
 const SourceFromURL = require("./SourceFromURL");
 
+const Cache = require("file-system-cache").default;
+
+const cache = Cache({ ns: "syncsources" });
+
 const { techmeme, hackernews, reddit } = require("../sources");
 
 const sources = [hackernews, techmeme, reddit];
 
+const SYNC_SLEEP = 60 * 60;
+
 async function SyncSource(source) {
+
+    const last_synced = await cache.get(source.service);
+    if (last_synced) {
+        const diff = (Date.now() - last_synced) / 1000;
+        if (diff < SYNC_SLEEP) {
+            log(`skipping source ${source.service} last synced ${(diff / 60).toFixed(2)} minutes ago...`);
+            return false;
+        }
+    }
+
     log(`syncing source ${source.service}...`);
 
     const links = await source();
@@ -44,11 +60,18 @@ async function SyncSource(source) {
 
         log(`created story from ${story.source} '${story.title}'`)
     }
+
+    await cache.set(source.service, Date.now());
+
+    return true;
 }
 
 module.exports = async function SyncSources(date = null) {
     log(`syncing sources...`);
     for (const source of sources) {
-        await SyncSource(source);
+        if (await SyncSource(source)) {
+            break;
+        }
     }
+    log(`finished syncing sources...`);
 }

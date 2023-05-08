@@ -15,7 +15,7 @@ module.exports = async function createStory(story) {
         return created;
     } catch (e) {
         if (e.name == "SequelizeUniqueConstraintError" && e.errors[0].type == "unique violation" && e.errors[0].path == "fingerprint") {
-            log(`story ${story.link} already exists`);
+            log(`story ${story.url} already exists`);
             return null;
         }
         console.log(`failed to create story`)
