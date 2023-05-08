@@ -3,74 +3,62 @@
 <% const today = DateTime.local() %>
 <% const isToday = dt.toISODate() == today.toISODate() %>
 
-<div class="bg-gradient-to-br from-amber-50/30 to-amber-100/30 min-h-screen p-2 flex flex-col gap-2 justify-between">
-    <div class="w-full justify-between flex text-amber-500 text-sm container max-w-4xl mx-auto mb-4 md:mb-8 lg:mb-12">
-        <a href="/?date=<%- dt.minus({days: 1}).toFormat("yyyy-MM-dd") %>">
-            <span class="hidden lg:block">
-                <% if (isToday) { %>
-                Yesterday
-                <% } else { %>
-                <%- dt.minus({days: 1}).toFormat("yyyy-MM-dd") %>
-                <% } %>
-            </span>
-            <span class="lg:hidden">&laquo;</span>
-
-        </a>
-        <a href="/?date=<%- dt.toFormat("yyyy-MM-dd") %>">
-            <%- dt.toLocaleString(DateTime.DATE_HUGE) %>
-            <span class="hidden lg:inline">
-                <% if (isToday) { %>
-                (Today)
-                <% } %>
-            </span>
-        </a>
-        <a href="/?date=<%- dt.plus({days: 1}).toFormat("yyyy-MM-dd") %>">
-            <span class="hidden lg:block">
-                <% if (isToday) { %>
-                Tomorrow
-                <% } else { %>
-                <%- dt.plus({days: 1}).toFormat("yyyy-MM-dd") %>
-                <% } %>
-            </span>
-            <span class="lg:hidden">&raquo;</span>
-        </a>
-    </div>
-    <% if (!visited) { %>
-    <div class="container max-w-4xl mx-auto p-0 mb-8">
-        <h3 class="text-xl font-medium bg-gradient-to-br from-amber-600 to-amber-300 text-transparent bg-clip-text">
-            Tired of the corporate news clickbait bonanza?
-        </h3>
-        <p class="">
-            <strong>News Score</strong> uses <a class="text-amber-500 underline" href="/">open-source AI</a> to score the news, sort the news and rewrite the headlines—so you can just catch up on the days headlines without the usual onslaught of modern media.
-        </p>
-    </div>
-    <% } %>
-    <div class="container max-w-4xl mx-auto p-0">
-        <div id="stories" class="flex flex-col gap-4">
-            <% if (stories.length == 0) { %>
-            <div class="text-center">No stories found for this date.</div>
+<div class="w-full justify-between flex text-amber-500 text-sm container max-w-4xl mx-auto mb-4 md:mb-8 lg:mb-12">
+    <a href="/?date=<%- dt.minus({days: 1}).toFormat("yyyy-MM-dd") %>">
+        <span class="hidden lg:block">
+            <% if (isToday) { %>
+            Yesterday
+            <% } else { %>
+            <%- dt.minus({days: 1}).toFormat("yyyy-MM-dd") %>
             <% } %>
-            <% stories.forEach(story => { %>
-            <%- include('partials/_story', { story }) %>
-            <% }) %>
-        </div>
-    </div>
-    <% if (stories.length > 0 && !newsletter) { %>
-    <div class="container max-w-4xl mx-auto p-0" id="newsletter">
-        <%- include("partials/_newsletter") %>
-    </div>
-    <% } %>
-    <div class="flex md:flex-row justify-between items-center container max-w-4xl mx-auto mt-20 flex-col-reverse">
-        <div class="w-full font-medium bg-gradient-to-br from-amber-700 to-amber-200 text-transparent bg-clip-text">
-            <div>&copy; News Score&nbsp; <span class="text-xs">score the news, sort the news, rewrite the headlines</span></div>
+        </span>
+        <span class="lg:hidden">&laquo;</span>
 
-        </div>
-        <div class="w-full flex justify-start md:justify-end text-amber-600 gap-4">
-            <a class="py-2" href="/leaderboard">Leaderboard</a>
-            <a class="py-2" href="/about">About</a>
-        </div>
+    </a>
+    <a href="/?date=<%- dt.toFormat("yyyy-MM-dd") %>">
+        <%- dt.toLocaleString(DateTime.DATE_HUGE) %>
+        <span class="hidden lg:inline">
+            <% if (isToday) { %>
+            (Today)
+            <% } %>
+        </span>
+    </a>
+    <a href="/?date=<%- dt.plus({days: 1}).toFormat("yyyy-MM-dd") %>">
+        <span class="hidden lg:block">
+            <% if (isToday) { %>
+            Tomorrow
+            <% } else { %>
+            <%- dt.plus({days: 1}).toFormat("yyyy-MM-dd") %>
+            <% } %>
+        </span>
+        <span class="lg:hidden">&raquo;</span>
+    </a>
+</div>
+<% if (!visited) { %>
+<div class="container max-w-4xl mx-auto p-0 mb-8">
+    <h3 class="text-xl font-medium bg-gradient-to-br from-amber-600 to-amber-300 text-transparent bg-clip-text">
+        Tired of the corporate news clickbait bonanza?
+    </h3>
+    <p class="">
+        <strong>News Score</strong> uses <a class="text-amber-500 underline" href="/">open-source AI</a> to score the news, sort the news and rewrite the headlines—so you can just catch up on the days headlines without the usual onslaught of modern media.
+    </p>
+</div>
+<% } %>
+<div class="container max-w-4xl mx-auto p-0">
+    <div id="stories" class="flex flex-col gap-4">
+        <% if (stories.length == 0) { %>
+        <div class="text-center">No stories found for this date.</div>
+        <% } %>
+        <% stories.forEach(story => { %>
+        <%- include('partials/_story', { story }) %>
+        <% }) %>
     </div>
 </div>
+<% if (stories.length > 0 && !newsletter) { %>
+<div class="container max-w-4xl mx-auto p-0" id="newsletter">
+    <%- include("partials/_newsletter") %>
+</div>
+<% } %>
 
 
 <%- include('partials/_footer') %>

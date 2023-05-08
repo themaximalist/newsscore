@@ -1,0 +1,26 @@
+<%- include('partials/_header') %>
+
+<div class="container max-w-4xl mx-auto p-0 my-8 lg:mt-20 gap-2 flex flex-col">
+    <h1 class="text-xl lg:text-3xl text-amber-600 font-medium">Leaderboard</h1>
+    <table class="max-w-md">
+        <tr>
+            <th class="text-left">Source</th>
+            <th class="text-right">Average Score</th>
+        </tr>
+        <% let i = 0 %>
+        <% for (const source of leaderboard.slice(0, 50)) { %>
+        <tr class="<%= (++i % 2 == 1 ? "bg-amber-50": "")%>">
+            <td class="p-1 text-lg">
+                <%- source.source %>
+            </td>
+            <td class="p-1 text-right flex justify-end">
+                <div class="score">
+                    <%- (source.average_score / 100).toFixed(1) %>
+                </div>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+</div>
+
+<%- include('partials/_footer') %>

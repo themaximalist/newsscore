@@ -11,7 +11,7 @@ body * {
     @apply text-lg;
 }
 
-.headline .score {
+.score {
     @apply inline-block float-left font-mono text-white rounded-lg text-sm bg-amber-500;
     @apply px-[5px] py-[1px] mt-[4px] mr-[6px];
 }
