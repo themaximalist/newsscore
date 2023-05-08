@@ -1,13 +1,13 @@
 const log = require("debug")("newsscore:SyncSources");
-const techmeme = require("../sources/techmeme");
 const CreateStory = require("./CreateStory")
 const Story = require("../models/story");
 const FingerprintLink = require("./FingerprintLink");
 const { Scrape } = require("@themaximalist/scrape.js");
 const SourceFromURL = require("./SourceFromURL");
-const hackernews = require("../sources/hackernews");
 
-const sources = [hackernews]; //, techmeme];
+const { techmeme, hackernews, reddit } = require("../sources");
+
+const sources = [hackernews, techmeme, reddit];
 
 async function SyncSource(source) {
     log(`syncing source ${source.service}...`);

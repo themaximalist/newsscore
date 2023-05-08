@@ -9,8 +9,10 @@ async function story(story_id) {
     if (cached) return cached;
 
     const response = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${story_id}.json`);
-    const url = response.data.url;
-    if (!url) throw new Error(`Error fetching story: ${story_id} has no url`);
+    let url = response.data.url;
+    if (!url) {
+        url = `https://news.ycombinator.com/item?id=${story_id}`;
+    }
 
     await cache.set(story_id, url)
     return url;

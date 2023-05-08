@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body * {
+    @apply outline-amber-500;
+    @apply placeholder-amber-400;
+}
+
+.headline {
+    @apply text-lg;
+}
+
+.headline .score {
+    @apply inline-block float-left font-mono text-white rounded-lg text-sm bg-amber-500;
+    @apply px-[5px] py-[1px] mt-[4px] mr-[6px];
+}
+
+.headline-800 .score {
+    @apply text-base lg:mt-[5px];
+}
+
+.headline-900 {
+    @apply text-3xl lg:text-4xl pb-8 lg:pb-10;
+}
+
+.headline-800 {
+    @apply text-2xl lg:text-3xl pb-6 lg:pb-8;
+}
+
+.headline-700 {
+    @apply text-xl lg:text-2xl pb-4 lg:pb-6;
+}
+
+.headline-600 {
+    @apply text-lg lg:text-base pb-2 lg:pb-4;
+}
