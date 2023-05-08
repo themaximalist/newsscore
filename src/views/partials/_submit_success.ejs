@@ -1,0 +1,15 @@
+<div class="container max-w-4xl mx-auto p-0 my-8 lg:mt-20 gap-2 flex flex-col">
+    <h1 class="text-xl lg:text-3xl text-amber-600 font-medium">Successfully submitted news!</h1>
+    <div class="flex flex-col gap-4 text-lg lg:text-xl max-w-xl">
+        <p>
+            <% if (story.score >= NEWS_SCORE_CUTOFF) { %>
+            Congratulations! Your story has been added to todays <a class="text-amber-500 underline" href="/">top news</a>.
+            <% } else { %>
+            The story you submitted has been added to <strong>News Score</strong>. It didn't quite make it to todays top news, but please try again with another link!
+            <% } %>
+        </p>
+    </div>
+    <div class="mt-10">
+        <%- include('_story', { story }) %>
+    </div>
+</div>

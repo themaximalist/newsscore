@@ -1,0 +1,28 @@
+<div class="container max-w-4xl mx-auto p-0 my-8 lg:mt-20 gap-2 flex flex-col">
+    <h1 class="text-xl lg:text-3xl text-amber-600 font-medium">Submit News</h1>
+    <div class="flex flex-col gap-4 text-lg lg:text-xl max-w-xl">
+        <p>
+            Enter a link below to add a story to <strong>News Score</strong>.
+        </p>
+        <p>
+            Our <a class="text-amber-500 underline" href="/about">algorithm</a> will automatically give it a score and add it to todays top news if it scores over <strong>6.0</strong>
+        </p>
+        <% if (typeof error == "string") { %>
+        <div class="text-red-600 error">
+            <%- error %>
+        </div>
+        <% } %>
+        <form hx-post="/submit/news" class="flex gap-2 w-full" hx-target="#submit_news" hx-indicator="#submit_news">
+            <input type="text" name="url" class="bg-transparent border-2 border-amber-400 p-3 text-xl text-left w-full rounded-xl" placeholder="http://news.google.com..." value="<%= (typeof url == "string" ? url : "") %>" />
+            <input type="submit" class="text-white cursor-pointer bg-amber-500 uppercase tracking-wider px-4 py-2 text-base text-center rounded-xl" value="Submit News" />
+        </form>
+        <div id="submit_news_loading">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>

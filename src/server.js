@@ -10,6 +10,7 @@ app.use(cookieParser());
 app.locals = {
   NODE_ENV: process.env.NODE_ENV,
   DateTime: require("luxon").DateTime,
+  NEWS_SCORE_CUTOFF: process.env.NEWS_SCORE_CUTOFF,
 };
 app.set("view engine", "ejs");
 app.set("views", "src/views");
