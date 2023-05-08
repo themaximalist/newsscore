@@ -43,7 +43,7 @@ module.exports = async function SyncContent() {
     if (stories.length == 0) return;
 
     return new Promise((resolve, reject) => {
-        async.eachLimit(stories, process.env.NUM_SCRAP_WORKERS, SyncStory, (err) => {
+        async.eachLimit(stories, process.env.NEWS_SCORE_WORKERS, SyncStory, (err) => {
             if (err) return reject(err);
             resolve();
         });
