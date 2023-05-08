@@ -4,6 +4,7 @@ const { DateTime } = require("luxon");
 
 module.exports = async function (req, res) {
 
+    const newsletter = !!req.cookies.newsletter;
     const visited = !!req.cookies.visited;
     if (!visited) {
         res.cookie("visited", true);
@@ -36,6 +37,7 @@ module.exports = async function (req, res) {
     res.render("home", {
         stories,
         visited,
+        newsletter,
         date: date.toISODate(),
     });
 };

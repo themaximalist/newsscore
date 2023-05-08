@@ -55,8 +55,8 @@
             <% }) %>
         </div>
     </div>
-    <% if (stories.length > 0) { %>
-    <div class="container max-w-4xl mx-auto p-0">
+    <% if (stories.length > 0 && !newsletter) { %>
+    <div class="container max-w-4xl mx-auto p-0" id="newsletter">
         <%- include("partials/_newsletter") %>
     </div>
     <% } %>

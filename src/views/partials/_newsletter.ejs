@@ -10,8 +10,13 @@
             Get the news without the clickbait.
         </p>
     </div>
-    <form method="post" action="/api/newsletter" class="flex flex-col justify-center gap-2 w-full mx-auto">
-        <input type="email" class="bg-transparent border-2 border-amber-400 p-3 text-xl text-center w-full mx-auto max-w-sm rounded-xl" placeholder="email@address.com" />
+    <% if (typeof error != "undefined") { %>
+    <div class="text-center text-red-600">
+        <%- error %>
+    </div>
+    <% } %>
+    <form hx-post="/newsletter/signup" class="flex flex-col justify-center gap-2 w-full mx-auto" hx-target="#newsletter">
+        <input type="email" name="email" class="bg-transparent border-2 border-amber-400 p-3 text-xl text-center w-full mx-auto max-w-sm rounded-xl" placeholder="email@address.com" value="<%= (typeof email == "string" ? email : "") %>" />
         <input type="submit" class="text-white cursor-pointer bg-amber-500 uppercase tracking-wider py-2 text-base text-center mx-auto w-full max-w-sm rounded-xl" value="Signup" />
     </form>
 </div>
