@@ -18,7 +18,7 @@ async function story(story_id) {
     return url;
 }
 
-async function hackernews(num = 60) {
+async function hackernews(num = 70) {
     const response = await axios.get("https://hacker-news.firebaseio.com/v0/topstories.json");
     if (response.status !== 200) throw new Error(`Error fetching top stories: ${response.status}`)
 

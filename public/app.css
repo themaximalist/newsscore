@@ -566,14 +566,6 @@ video {
   position: static;
 }
 
-.right-0 {
-  right: 0px;
-}
-
-.float-right {
-  float: right;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -602,10 +594,6 @@ video {
 
 .mt-4 {
   margin-top: 1rem;
-}
-
-.inline-block {
-  display: inline-block;
 }
 
 .flex {
@@ -642,6 +630,10 @@ video {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.grow {
+  flex-grow: 1;
 }
 
 .cursor-pointer {
