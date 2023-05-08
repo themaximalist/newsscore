@@ -1,7 +1,7 @@
 const log = require("debug")("newsscore:SyncContent");
 const async = require("async");
 const Story = require('../models/story');
-const { Scrape } = require("@themaximalist/scrap.js");
+const { Scrape } = require("@themaximalist/scrape.js");
 const { Op } = require("sequelize");
 
 async function SyncStory(story) {
