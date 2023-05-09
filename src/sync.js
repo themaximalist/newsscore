@@ -14,6 +14,8 @@ async function sync() {
     await HighpassFilter();
     await SyncScores();
     await SyncHeadlines();
+    log(`finished sync`);
+    process.exit();
 }
 
 sync();
