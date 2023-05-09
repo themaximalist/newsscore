@@ -2,10 +2,10 @@ const log = require("debug")("newsscore:TweetStory");
 const { TwitterApi } = require("twitter-api-v2");
 
 const twitter = new TwitterApi({
-    appKey: process.env.CONSUMER_KEY,
-    appSecret: process.env.CONSUMER_SECRET,
-    accessToken: process.env.ACCESS_TOKEN_KEY,
-    accessSecret: process.env.ACCESS_TOKEN_SECRET,
+    appKey: process.env.TWITTER_CONSUMER_KEY,
+    appSecret: process.env.TWITTER_CONSUMER_SECRET,
+    accessToken: process.env.TWITTER_ACCESS_TOKEN_KEY,
+    accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
 async function tweetStory(story) {
