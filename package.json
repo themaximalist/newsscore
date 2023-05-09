@@ -34,7 +34,8 @@
         "request": "^2.88.2",
         "rss-parser": "^3.13.0",
         "sequelize": "^6.31.1",
-        "string-strip-html": "^8.4.0"
+        "string-strip-html": "^8.4.0",
+        "twitter-api-v2": "^1.14.2"
     },
     "devDependencies": {
         "nodemon": "^2.0.22",

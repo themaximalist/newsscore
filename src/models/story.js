@@ -60,6 +60,11 @@ Story.init({
         defaultValue: false,
         allowNull: false,
     },
+    tweet_id: {
+        type: DataTypes.STRING,
+        defaultValue: null,
+        allowNull: true,
+    },
     llm_fields: {
         type: DataTypes.VIRTUAL,
         get() {
