@@ -1,6 +1,6 @@
 <%- include('partials/_header') %>
 <% const dt = DateTime.fromISO(date) %>
-<% const today = DateTime.local() %>
+<% const today = DateTime.utc() %>
 <% const isToday = dt.toISODate() == today.toISODate() %>
 
 <div class="w-full justify-between flex text-amber-500 text-sm container max-w-4xl mx-auto mb-4 md:mb-8 lg:mb-12">
