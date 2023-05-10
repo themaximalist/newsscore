@@ -23,8 +23,6 @@ module.exports = async function (req, res) {
 
     const start = date.startOf("day").toISO();
     const end = date.endOf("day").toISO();
-    console.log("START", start);
-    console.log("END", end);
 
     const stories = await Story.findAll({
         where: {

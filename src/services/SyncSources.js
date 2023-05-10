@@ -1,27 +1,24 @@
 const log = require("debug")("newsscore:SyncSources");
 const CreateStory = require("./CreateStory")
 const Story = require("../models/story");
+const Sync = require("../models/sync");
+const { DateTime } = require("luxon");
 const FingerprintLink = require("./FingerprintLink");
 const { Scrape } = require("@themaximalist/scrape.js");
 const SourceFromURL = require("./SourceFromURL");
-
-const Cache = require("file-system-cache").default;
-
-const cache = Cache({ ns: "syncsources" });
 
 const { techmeme, hackernews, reddit } = require("../sources");
 
 const sources = [hackernews, techmeme, reddit];
 
-const SYNC_SLEEP = 60 * 60;
-
 async function SyncSource(source) {
 
-    const last_synced = await cache.get(source.service);
-    if (last_synced) {
-        const diff = (Date.now() - last_synced) / 1000;
-        if (diff < SYNC_SLEEP) {
-            log(`skipping source ${source.service} last synced ${(diff / 60).toFixed(2)} minutes ago...`);
+    const sync = await Sync.findOne({ where: { service: source.service } });
+    if (sync) {
+        const last_synced = DateTime.fromJSDate(sync.updatedAt);
+        const mins = DateTime.now().diff(last_synced, "minutes").minutes;
+        if (mins < process.env.SYNC_SLEEP_SOURCE_MINS) {
+            log(`skipping source ${source.service} last synced ${mins.toFixed(2)} minutes ago...`);
             return false;
         }
     }
@@ -61,7 +58,7 @@ async function SyncSource(source) {
         log(`created story from ${story.source} '${story.title}'`)
     }
 
-    await cache.set(source.service, Date.now());
+    await Sync.upsert({ service: source.service, runs: sync ? sync.runs + 1 : 1 });
 
     return true;
 }
