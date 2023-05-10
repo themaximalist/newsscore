@@ -11,13 +11,13 @@ module.exports = async function (req, res) {
     }
 
     let score = req.query.score || process.env.NEWS_SCORE_CUTOFF;
-    let date = DateTime.local();
+    let date = DateTime.utc();
     if (req.query.date) {
         try {
             date = DateTime.fromISO(req.query.date);
         } catch (e) {
             log(`invalid date ${req.query.date}`);
-            date = DateTime.local();
+            date = DateTime.utc();
         }
     }
 
