@@ -21,11 +21,15 @@ module.exports = async function SyncHeadlines() {
     log(`found ${stories.length} score>=${process.env.NEWS_SCORE_CUTOFF} stories without tweets`);
     if (stories.length == 0) return;
 
+    let i = 0;
     for (const story of stories) {
         const tweet_id = await TweetStory(story);
         await story.update({ tweet_id });
-        break; // only do one tweet at a time for now
-        // await new Promise(resolve => setTimeout(resolve, 5000));
+        await new Promise(resolve => setTimeout(resolve, 15000));
+        if (++i >= process.env.SYNC_TWEETS_PER_RUN) {
+            log(`reached max tweets per run ${process.env.SYNC_TWEETS_PER_RUN} stopping...`);
+            break;
+        }
     }
 
     log(`done syncing tweets`);
