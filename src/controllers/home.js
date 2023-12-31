@@ -34,10 +34,18 @@ module.exports = async function (req, res) {
         order: [["score", "DESC"]],
     });
 
+    let last_modified = 0;
+    for (const story of stories) {
+        if (story.updatedAt > last_modified) {
+            last_modified = story.updatedAt;
+        }
+    }
+
     res.render("home", {
         stories,
         visited,
         newsletter,
         date: date.toISODate(),
+        last_modified: last_modified.toISOString(),
     });
 };
