@@ -15,7 +15,7 @@ async function sync() {
     await HighpassFilter();
     await SyncScores();
     await SyncHeadlines();
-    await SyncTweets();
+//    await SyncTweets();
     log(`finished sync`);
     process.exit();
 }

@@ -12,7 +12,7 @@ async function filter() {
         order: [
             ['createdAt', 'DESC']
         ],
-        limit: 25,
+        limit: 50,
     });
 
     log(`found ${stories.length} stories without scores`);

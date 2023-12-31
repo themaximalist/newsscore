@@ -28,13 +28,17 @@ module.exports = async function SyncScores() {
 
     let i = 0;
     for (const story of stories) {
-        const score = await ScoreAgent(story.llm_fields);
-        log(`updating score for ${story.title} from ${story.score} -> ${score}`);
-        await story.update({ score, final: true });
-
-        if (++i % 10 == 0) {
-            log(`sleeping for 15 seconds...`);
-            await new Promise(resolve => setTimeout(resolve, 15000));
+        try {
+            const score = await ScoreAgent(story.llm_fields);
+            log(`updating score for ${story.title} from ${story.score} -> ${score}`);
+            await story.update({ score, final: true });
+        } catch (e) {
+            log(`error updating score for ${story.title} ${e.message}`);
+        } finally {
+            if (++i % 10 == 0) {
+                log(`sleeping for 15 seconds...`);
+                await new Promise(resolve => setTimeout(resolve, 15000));
+            }
         }
     }
 }

@@ -21,13 +21,17 @@ module.exports = async function SyncHeadlines() {
     let i = 0;
     for (const story of stories) {
         console.log(story.title);
-        const headline = await HeadlineAgent(story.llm_fields);
-        log(`updating headline from '${story.title}' to '${headline}'`);
-        await story.update({ headline });
-
-        if (++i % 10 == 0) {
-            log(`sleeping for 15 seconds...`);
-            await new Promise(resolve => setTimeout(resolve, 15000));
+        try {
+            const headline = await HeadlineAgent(story.llm_fields);
+            log(`updating headline from '${story.title}' to '${headline}'`);
+            await story.update({ headline });
+        } catch (e) {
+            log(`error updating headline from '${story.title}' to '${headline}'`);
+        } finally {
+            if (++i % 10 == 0) {
+                log(`sleeping for 15 seconds...`);
+                await new Promise(resolve => setTimeout(resolve, 15000));
+            }
         }
     }
 }
