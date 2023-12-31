@@ -14,7 +14,7 @@ module.exports = async function (req, res) {
     let date = DateTime.utc();
     if (req.query.date) {
         try {
-            date = DateTime.fromISO(req.query.date);
+            date = DateTime.fromFormat(req.query.date, "yyyy-MM-dd", { zone: "utc" });
         } catch (e) {
             log(`invalid date ${req.query.date}`);
             date = DateTime.utc();
