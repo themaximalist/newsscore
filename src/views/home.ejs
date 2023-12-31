@@ -59,9 +59,11 @@
     <%- include("partials/_newsletter") %>
 </div>
 <% } %>
+<% if (last_modified) { %>
 <div class="text-center text-sm text-orange-300">
-    Last Updated <%= last_modified %>
+    Last Updated <%= last_modified.toISOString() %>
 </div>
+<% } %>
 
 
 

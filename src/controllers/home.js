@@ -34,9 +34,9 @@ module.exports = async function (req, res) {
         order: [["score", "DESC"]],
     });
 
-    let last_modified = 0;
+    let last_modified = null;
     for (const story of stories) {
-        if (story.updatedAt > last_modified) {
+        if (!last_modified || story.updatedAt > last_modified) {
             last_modified = story.updatedAt;
         }
     }
@@ -46,6 +46,6 @@ module.exports = async function (req, res) {
         visited,
         newsletter,
         date: date.toISODate(),
-        last_modified: last_modified.toISOString(),
+        last_modified,
     });
 };
