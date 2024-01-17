@@ -35,7 +35,7 @@ ${JSON.stringify(stories)}
 The scores for the articles above are:
     `.trim();;
 
-    return await AI(prompt, { model: "gpt-4", parser: JSON.parse });
+    return await AI(prompt, { model: "gpt-4-1106-preview", parser: JSON.parse });
 }
 
 

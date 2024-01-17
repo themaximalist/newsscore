@@ -12,14 +12,14 @@ async function filter() {
         order: [
             ['createdAt', 'DESC']
         ],
-        limit: 50,
+        limit: 30,
     });
 
     log(`found ${stories.length} stories without scores`);
     if (stories.length == 0) return false;
 
     const articles = stories.map(story => {
-        return { title: story.title, id: story.id };
+        return { title: story.title.substr(0, 200), id: story.id };
     });
 
     const scores = await HighpassFilterAgent(articles);
