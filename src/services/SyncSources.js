@@ -31,6 +31,11 @@ async function SyncSource(source) {
     for (const link of links) {
         log(`processing ${source.service} link ${link}`);
 
+        if (link.endsWith(".pdf")) {
+            log(`skipping story PDF ${link}`);
+            continue;
+        }
+
         const fingerprint = await FingerprintLink(link);;
 
         let story = await Story.findOne({ where: { fingerprint } });

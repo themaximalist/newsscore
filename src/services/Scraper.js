@@ -5,7 +5,10 @@ const request = require("request");
 const { querystring } = require("../utils");
 
 async function extractor(url) {
+    if (url.endsWith(".pdf")) throw new Error(`Error scraping ${url}: PDFs are not supported`);
+
     log(`scraping with extractor API ${url}...`)
+
     const endpoint = `https://extractorapi.com/api/v1/extractor/?apikey=${process.env.EXTRACTOR_API_KEY}&url=${encodeURIComponent(url)}`;
     const response = await axios.get(endpoint);
 
