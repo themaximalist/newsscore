@@ -1,5 +1,6 @@
 module.exports = function setup(app) {
     app.get("/", require("./home"));
+    app.get("/story/:id", require("./stories"));
     app.get("/leaderboard", require("./leaderboard"));
     app.get("/submit", require("./submit"));
     app.get("/about", require("./about"));
