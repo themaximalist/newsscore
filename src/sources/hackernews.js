@@ -5,8 +5,12 @@ const Cache = require("file-system-cache").default;
 const cache = Cache({ ns: "hackernews" });
 
 async function story(story_id) {
-    const cached = await cache.get(story_id);
-    if (cached) return cached;
+    try {
+        const cached = await cache.get(story_id);
+        if (cached) return cached;
+    } catch (e) {
+        console.log("CACHING ERROR", e);
+    }
 
     const response = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${story_id}.json`);
     let url = response.data.url;
