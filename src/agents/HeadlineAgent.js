@@ -19,5 +19,5 @@ ${JSON.stringify(story)}
 The headline for this article is:
 `.trim();
 
-    return await AI(prompt, { model: "gpt-4" });
+    return await AI(prompt, { model: "gpt-4o-mini" });
 }

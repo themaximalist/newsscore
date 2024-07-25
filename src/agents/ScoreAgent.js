@@ -36,7 +36,7 @@ The calculated score for the article above is:
 `.trim();
 
     async function fetch() {
-        const response = await AI(prompt, { model: "gpt-4" });
+        const response = await AI(prompt, { model: "gpt-4o-mini" });
         let score = parseInt(parseFloat(response) * 100);
         if (isNaN(score)) {
             console.log("RESPONSE", response);
