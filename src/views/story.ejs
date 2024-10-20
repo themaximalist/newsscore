@@ -4,6 +4,13 @@
     <div class="flex flex-col gap-4 text-lg lg:text-xl w-full">
         <%- include('partials/_story', { story }) %>
     </div>
+
+
+    <br />
+
+    <h3 class="font-bold"><%- story.title %></h3>
+    <div><%= story.content.slice(0, 500) %>...</div>
+    <p class="text-sm text-gray-500">Read more at <a href="<%- story.url %>" target="_blank"><%- story.source %></a></p>
 </div>
 
 <%- include('partials/_footer') %>

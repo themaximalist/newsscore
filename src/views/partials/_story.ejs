@@ -11,17 +11,12 @@
 <div class="mb-4">
     <a class="headline <%- klass %>" href="<%- story.url %>" target="_blank">
         <span class="score"><%- (story.score / 100).toFixed(1) %></span>
-        <span class="title">
+        <h2 class="title inline">
             <%- story.headline || story.title %>
-        </span>
+        </h2>
         <span class="source text-base italic text-gray-400"><%- story.source %></span>
     </a>
     <a href="/story/<%= story.id %>" class="font-mono text-base italic text-gray-400 font-light">
         #
     </a>
-
-    <br />
-    <br />
-
-    <div><%= story.content.slice(0, 500) %>...</div>
 </div>
