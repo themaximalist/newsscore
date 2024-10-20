@@ -12,7 +12,10 @@ module.exports = async function SyncHeadlines() {
                 [Op.gte]: process.env.NEWS_SCORE_CUTOFF
             },
             headline: null
-        }
+        },
+        order: [
+            ['createdAt', 'DESC']
+        ],
     });
 
     log(`found ${stories.length} score>=${process.env.NEWS_SCORE_CUTOFF} stories without headlines`);
