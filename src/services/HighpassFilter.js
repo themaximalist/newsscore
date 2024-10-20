@@ -22,6 +22,7 @@ async function filter() {
         return { title: story.title.substr(0, 200), id: story.id };
     });
 
+    let num = 0;
     const scores = await HighpassFilterAgent(articles);
     for (const story of stories) {
         const score = scores[story.id];
@@ -38,6 +39,12 @@ async function filter() {
         }
 
         await story.update({ score: scores[story.id] });
+
+        num++;
+        if (num > 100) {
+            log(`processed ${num} stories...breaking out`);
+            return true;
+        }
     }
 
     log(`updated ${stories.length} stories with scores`);
