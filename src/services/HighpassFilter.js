@@ -12,7 +12,7 @@ async function filter() {
         order: [
             ['createdAt', 'DESC']
         ],
-        limit: 50,
+        limit: 100,
     });
 
     log(`found ${stories.length} stories without scores`);
@@ -22,42 +22,35 @@ async function filter() {
         return { title: story.title.substr(0, 200), id: story.id };
     });
 
-    let num = 0;
+    let processedCount = 0;
     const scores = await HighpassFilterAgent(articles);
     for (const story of stories) {
         const score = scores[story.id];
         if (!score || !parseInt(score)) {
             log(`skipping story '${story.title}' with score ${scores[story.id]}`);
             await story.update({ score: 0 });
-            continue;
-        }
-
-        if (score >= process.env.NEWS_SCORE_CUTOFF) {
-            log(`FOUND BIG STORY '${story.title}' with score ${scores[story.id]}`);
         } else {
-            log(`updating story '${story.title}' with score ${scores[story.id]}`);
+            if (score >= process.env.NEWS_SCORE_CUTOFF) {
+                log(`FOUND BIG STORY '${story.title}' with score ${scores[story.id]}`);
+            } else {
+                log(`updating story '${story.title}' with score ${scores[story.id]}`);
+            }
+            await story.update({ score: scores[story.id] });
         }
 
-        await story.update({ score: scores[story.id] });
-
-        num++;
-        if (num > 100) {
-            log(`processed ${num} stories...breaking out`);
-            return false;
-        }
+        processedCount++;
     }
 
-    log(`updated ${stories.length} stories with scores`);
+    log(`updated ${processedCount} stories with scores`);
 
-    return true;
+    return processedCount === 100;
 }
 
 module.exports = async function () {
-    while (true) {
+    let continueFiltering = true;
+    while (continueFiltering) {
         log(`running highpass filter`);
-        if (!await filter()) {
-            log(`no more stories to filter`);
-            return;
-        }
+        continueFiltering = await filter();
     }
+    log(`no more stories to filter or reached 100 story limit`);
 }
