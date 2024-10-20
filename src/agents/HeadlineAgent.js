@@ -12,6 +12,7 @@ INSTRUCTIONS
 - Summarize the facts into an engaging headline
 - Include WHO, WHAT, WHERE, WHEN, WHY and HOW when you can
 - Use short, simple words and sentences with commas, semi-colons and dashes.
+- Only return the headline, nothing else.
 
 ARTICLE DETAILS:
 ${JSON.stringify(story)}
