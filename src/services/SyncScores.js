@@ -19,8 +19,8 @@ module.exports = async function SyncScores() {
         },
         order: [
             ['createdAt', 'DESC']
-        ]
-
+        ],
+        limit: 100
     });
 
     log(`found ${stories.length} candidate stories without final scores`);
@@ -35,7 +35,7 @@ module.exports = async function SyncScores() {
         } catch (e) {
             log(`error updating score for ${story.title} ${e.message}`);
         } finally {
-            if (++i % 10 == 0) {
+            if (++i % 15 == 0) {
                 log(`sleeping for 15 seconds...`);
                 await new Promise(resolve => setTimeout(resolve, 15000));
             }
