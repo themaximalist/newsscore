@@ -1,8 +1,8 @@
 const log = require("debug")("newsscore:ScoreAgent");
-const AI = require("@themaximalist/ai.js");
 
 module.exports = async function ScoreAgent(story) {
     if (!story) throw new Error(`No story provided!`);
+    const LLM = (await import("@themaximalist/llm.js")).default;
 
     const prompt = `
 You are News Rank AI, an advanced artificial intelligence system designed to evaluate and score news articles based on their quality and importance. Assign a score ranging from 0.0 (low quality) to 10.0 (high quality) to each article.
@@ -36,7 +36,7 @@ The calculated score for the article above is:
 `.trim();
 
     async function fetch() {
-        const response = await AI(prompt, { model: "gpt-4o-mini" });
+        const response = await LLM(prompt, { model: "claude-3-5-sonnet-20240620" });
         let score = parseInt(parseFloat(response) * 100);
         if (isNaN(score)) {
             console.log("RESPONSE", response);

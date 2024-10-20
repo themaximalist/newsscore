@@ -1,7 +1,7 @@
 const log = require("debug")("newsscore:HeadlineAgent");
-const AI = require("@themaximalist/ai.js");
 
 module.exports = async function HeadlineAgent(story) {
+    const LLM = (await import("@themaximalist/llm.js")).default;
     if (!story) throw new Error(`No story provided!`);
 
     const prompt = `
@@ -19,5 +19,5 @@ ${JSON.stringify(story)}
 The headline for this article is:
 `.trim();
 
-    return await AI(prompt, { model: "gpt-4o-mini" });
+    return await LLM(prompt, { model: "claude-3-5-sonnet-20240620" });
 }

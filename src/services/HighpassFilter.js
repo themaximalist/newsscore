@@ -27,6 +27,7 @@ async function filter() {
         const score = scores[story.id];
         if (!score || !parseInt(score)) {
             log(`skipping story '${story.title}' with score ${scores[story.id]}`);
+            await story.update({ score: 0 });
             continue;
         }
 
