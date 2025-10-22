@@ -36,7 +36,7 @@ The calculated score for the article above is:
 `.trim();
 
     async function fetch() {
-        const response = await LLM(prompt, { model: "claude-3-5-sonnet-20240620" });
+        const response = await LLM(prompt, { model: "claude-sonnet-4-5" });
         let score = parseInt(parseFloat(response) * 100);
         if (isNaN(score)) {
             console.log("RESPONSE", response);

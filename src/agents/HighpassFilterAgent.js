@@ -36,7 +36,7 @@ ${JSON.stringify(stories)}
 The scores for the articles above are:
     `.trim();;
 
-    return await LLM(prompt, { model: "claude-3-5-sonnet-20240620", parser: JSON.parse });
+    return await LLM(prompt, { model: "claude-sonnet-4-5", parser: JSON.parse });
 }
 
 

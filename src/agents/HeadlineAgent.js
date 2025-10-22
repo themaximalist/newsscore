@@ -20,5 +20,5 @@ ${JSON.stringify(story)}
 The headline for this article is:
 `.trim();
 
-    return await LLM(prompt, { model: "claude-3-5-sonnet-20240620" });
+    return await LLM(prompt, { model: "claude-sonnet-4-5" });
 }
