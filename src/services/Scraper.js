@@ -5,6 +5,8 @@ const request = require("request");
 const { querystring } = require("../utils");
 
 async function extractor(url) {
+    if (url.endsWith(".mp3")) throw new Error(`Error scraping ${url}: MP3s are not supported`);
+    if (url.endsWith(".mp4")) throw new Error(`Error scraping ${url}: MP4s are not supported`);
     if (url.endsWith(".pdf")) throw new Error(`Error scraping ${url}: PDFs are not supported`);
 
     log(`scraping with extractor API ${url}...`)

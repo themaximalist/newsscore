@@ -36,6 +36,11 @@ async function SyncSource(source) {
             continue;
         }
 
+        if (link.endsWith(".mp4")) {
+            log(`skipping story MP4 ${link}`);
+            continue;
+        }
+
         const fingerprint = await FingerprintLink(link);;
 
         let story = await Story.findOne({ where: { fingerprint } });
