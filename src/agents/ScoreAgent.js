@@ -1,4 +1,5 @@
 const log = require("debug")("newsscore:ScoreAgent");
+const { parseJSON } = require("../utils");
 
 module.exports = async function ScoreAgent(story) {
     if (!story) throw new Error(`No story provided!`);
@@ -42,7 +43,7 @@ The calculated score for the article above is:
             console.log("RESPONSE", response);
             log(`score isNan attempting JSON.parse`);
             try {
-                const data = JSON.parse(response);
+                const data = parseJSON(response);
                 if (!data.score) throw new Error("Score is not a number");
                 score = parseInt(parseFloat(data.score) * 100);
                 if (isNaN(score)) {

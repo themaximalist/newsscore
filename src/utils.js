@@ -25,9 +25,31 @@ function newsDateToUTC(date) {
     return DateTime.fromISO(date.replace(" ", "T"), { zone: "GMT" }).toISO();
 }
 
+function parseCodeBlock(blockType) {
+    return function (content) {
+        try {
+            return content.split("```" + blockType)[1].split("```")[0].trim();
+        } catch (e) {
+            log.error(`error parsing code block of type ${blockType} from content`, content);
+            throw e;
+        }
+    }
+}
+
+function parseJSON(content) {
+    try {
+        return JSON.parse(content);
+    } catch (e) {
+        const parser = parseCodeBlock("json");
+        return JSON.parse(parser(content));
+    }
+}
+
 module.exports = {
     querystring,
     sha256,
     newsDateToUTC,
     isValidURL,
+    parseCodeBlock,
+    parseJSON,
 }

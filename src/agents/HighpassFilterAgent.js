@@ -1,4 +1,5 @@
 const log = require("debug")("newsscore:HighpassFilterAgent");
+const { parseJSON } = require("../utils");
 
 module.exports = async function HighpassFilterAgent(stories) {
     const LLM = (await import("@themaximalist/llm.js")).default;
@@ -36,7 +37,7 @@ ${JSON.stringify(stories)}
 The scores for the articles above are:
     `.trim();;
 
-    return await LLM(prompt, { model: "claude-sonnet-4-5", parser: JSON.parse });
+    return await LLM(prompt, { model: "claude-sonnet-4-5", parser: parseJSON });
 }
 
 
